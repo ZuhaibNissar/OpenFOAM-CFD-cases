@@ -1,0 +1,9 @@
+#How to plot the resutls using gnuplot
+
+set xlabel 'Time (seconds)'
+set ylabel 'Water volume integral'
+plot 'postProcessing/water_in_domain/0/volRegion.dat' u 1:2 w l title 'Water in domain'
+
+set xlabel 'Time (seconds)'
+set ylabel 'Hydrostatic pressure'
+plot 'SPHERIC_Test2/case.txt' u 1:2 w l title 'Experiment', 'postProcessing/probes1/0/p' u 1:2 w l title 'Numerical simulation'

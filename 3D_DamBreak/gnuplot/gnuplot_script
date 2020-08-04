@@ -1,0 +1,35 @@
+set terminal qt 0
+
+#set multiplot layout 2,1
+
+set grid xtics
+set grid ytics
+#set grid mxtics
+#set grid mytics
+
+set key left
+set ylabel "Y centerline"
+set xlabel "UX"
+plot 'postProcessing/water_in_domain/0/volFieldValue.dat' u 1:2 w l
+
+
+set terminal qt 1
+
+set key default
+set xlabel "X centerline"
+set ylabel "UY"
+plot 'SPHERIC_Test2/case.txt' u 1:2 w l, 'postProcessing/probes1/0/p' u 1:2 w l
+
+#unset multiplot
+
+
+print "Plotting with GNUPLOT"
+print "Press ENTER or crtl-c to close windows and take control of the terminal"
+
+pause -1
+
+#    EOF
+
+
+#Spheric test case 2
+#spheric-sph.org/tests/test-2

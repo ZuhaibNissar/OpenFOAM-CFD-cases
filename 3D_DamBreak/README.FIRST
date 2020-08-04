@@ -1,0 +1,67 @@
+#How to run me:
+
+
+
+#To clean the directory, this is optional
+
+foamCleanTutorials
+
+foamCleanPolyMesh
+
+
+
+#To create the mesh
+
+blockMesh
+
+surfaceFeatureExtract
+
+snappyHexMesh -overwrite
+
+checkMesh
+
+
+
+#Erase time folder 0 and then create and empty one
+
+rm -rf 0
+
+cp -r 0_org 0
+
+
+
+#To initialize the fields
+
+setFields
+
+
+
+#To rename patches
+createPatch -dict system/createPatchDict.0 -overwrite
+createPatch -dict system/createPatchDict.1 -overwrite
+
+
+
+#To run in parallel (with 4 procs)
+
+decomposePar
+
+mpirun -np 4 renumberMesh -overwrite -parallel 
+
+mpirun -np 4 interFoam -parallel | tee log
+
+paraFoam -builtin
+
+#reconstructPar
+
+#paraFoam
+
+
+
+
+#To do some plotting in gnuplot
+plot 'postProcessing/water_in_domain/0/volFieldValue.dat' u 1:2 w l
+plot 'SPHERIC_Test2/case.txt' u 1:2 w l, 'postProcessing/probes1/0/p' u 1:2 w l
+
+
+
