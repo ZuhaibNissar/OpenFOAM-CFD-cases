@@ -1,0 +1,52 @@
+#How to run me:
+
+
+
+#To clean the directory, this is optional
+
+foamCleanTutorials
+
+foamCleanPolyMesh
+
+
+
+#To create the mesh
+
+blockMesh
+
+checkMesh
+
+renumberMesh -overwrite
+
+
+#To run in parallel (with 4 procs)
+
+decomposePar
+
+mpirun -np 4 renumberMesh -overwrite -parallel 
+
+mpirun -np 4 sprayFoam -parallel | tee log.sprayFoam
+
+paraFoam -builtin
+
+reconstructPar
+
+##Visualize the results
+
+#For the continuous fields, open paraview by typing paraFoam
+
+#For discrete (liquid phase):
+
+#Convert the results to VTK format by typing: 
+
+foamToVTK
+
+#Open paraview by typing: 
+
+paraFoam
+
+#Load Lagrangian particle from VTK/lagrangian/sprayCloud/sprayCloud.vtp.series
+
+#Apply Glyph filter
+
+
